@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+  name: webapp-deployment
+
+  labels:
+
+    app: webapp
+
+spec:
+
+  replicas: 3
+
+  selector:
+
+    matchLabels:
+
+      app: webapp
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: webapp
+
+    spec:
+
+      containers:
+
+      - name: javawebapp
+
+        image: bharath0812/deployrepo:tagname
+
+        ports:
+
+        - containerPort: 8080
