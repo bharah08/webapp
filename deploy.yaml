@@ -1,41 +1,36 @@
+---
 apiVersion: apps/v1
-
 kind: Deployment
-
 metadata:
-
-  name: webapp-deployment
-
-  labels:
-
-    app: webapp
-
+ name: mavenwebappdeployment
 spec:
-
-  replicas: 3
-
+ replicas: 1
+ strategy: 
+    type: Recreate
+ selector: 
+   matchLabels: 
+     app: mavenwebapp
+ template:
+  metadata:
+   name: mavenwebapppod
+   labels:
+     app: mavenwebapp	 
+  spec: 
+    containers:
+    - name: mavenwebapp
+      image: bharath0812/deployrepo:latest
+      ports:
+      - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: mavenwebappsvc
+spec:
+  type: NodePort
   selector:
-
-    matchLabels:
-
-      app: webapp
-
-  template:
-
-    metadata:
-
-      labels:
-
-        app: webapp
-
-    spec:
-
-      containers:
-
-      - name: javawebapp
-
-        image: bharath0812/deployrepo:tagname
-
-        ports:
-
-        - containerPort: 8080
+   app: mavenwebapp
+  ports:
+   - port: 80
+     targetPort: 8080
+...
