@@ -18,7 +18,7 @@ spec:
   spec: 
     containers:
     - name: mavenwebapp
-      image: bharath0812/deployrepo:1.0
+      image: bharath0812/deployrepo:2.0
       ports:
       - containerPort: 8080
 ---
