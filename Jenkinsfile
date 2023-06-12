@@ -3,7 +3,7 @@ pipeline {
 	
 	  tools
     {
-       maven 'maven-3.8.6'
+       maven 'maven'
     }
 	triggers {
   pollSCM 'H/1 * * * * '
