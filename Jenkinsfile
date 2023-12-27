@@ -5,9 +5,10 @@ pipeline {
     {
        maven 'maven'
     }
-	triggers {
-  pollSCM 'H/1 * * * * '
+triggers {
+  upstream threshold: 'ABORTED', upstreamProjects: 'test-1'
 }
+
     options {
   buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '30', numToKeepStr: '3')
   timestamps()
