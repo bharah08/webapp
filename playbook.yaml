@@ -1,0 +1,29 @@
+---
+- name: tomcat install
+  hosts: all
+  become: yes
+  vars:
+    pkgs:
+      - tomcat9
+      - tomcat9-admin
+      - tomcat9-examples
+  tasks:
+    - name: install tomcat
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ pkgs }}"
+    - name: permisiion to tomcat
+      shell: |
+        cd /var/lib/
+        chmod -R +x tomcat9/
+        cd
+    - name: install tomcat
+      apt:
+        name: "{{ item }}"
+        state: present
+    - name: copy artfact to prd server
+      copy:
+        src: /var/lib/jenkins/workspace/java-app/target/*.war
+        dest: /var/lib/tomcat9/webapps/
