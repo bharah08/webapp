@@ -9,6 +9,8 @@
       - tomcat9-examples
   tasks:
     - name: install tomcat
+      become: yes
+      become_user: root
       apt:
         name: "{{ item }}"
         state: present
