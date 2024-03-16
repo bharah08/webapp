@@ -27,5 +27,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Update PATH
+      run: |
+        echo "export PATH=$PATH:/opt/apache-maven-3.6.3" >> $HOME/.bashrc
+        source $HOME/.bashrc
+
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B install --file pom.xml
