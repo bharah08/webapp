@@ -27,14 +27,13 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B install --file pom.xml
-
-    - uses: actions/checkout@v2
-    - uses: vitr/actions-build-and-upload-to-ecs@master
+    - name: build docker image
+    - run: docker build -t 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:v1 .
+    - name: Push to ECR
+      id: ecr
+      uses: jwalton/gh-ecr-push@v1
       with:
-        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-        repo: java
+        access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ap-south-1
-        tags: v1
-        create_repo: true
+        image: 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:v1 .
