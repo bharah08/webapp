@@ -33,7 +33,7 @@ jobs:
       with:
         projectBaseDir: .
         args: >
-          sonar.verbose=true
+          -Dsonar.verbose=true
           -Dsonar.projectName=woapp
           -Dsonar.language=java
           -Dsonar.sourceEncoding=UTF-8
