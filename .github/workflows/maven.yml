@@ -29,8 +29,7 @@ jobs:
         cache: maven
     - name: Update PATH
       run: |
-        echo "export PATH=$PATH:/opt/apache-maven-3.6.3" >> $HOME/.bashrc
-        source $HOME/.bashrc
+        PATH="/opt/apache-maven-3.6.3/bin:$PATH"
 
     - name: Build with Maven
       run: mvn -B install --file pom.xml
