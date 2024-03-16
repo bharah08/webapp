@@ -54,7 +54,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: build docker image
-      run: docker build -t bharath0812/java:5.0
+      run: docker build -t bharath0812/java:5.0 .
     - name: docker image scan by trivy
       run: trivy image bharath0812/java:5.0 >fs.txt
     - name: push docker image to dockerhub
