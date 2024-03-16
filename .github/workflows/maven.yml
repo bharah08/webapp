@@ -38,4 +38,3 @@ jobs:
         access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         region: ap-south-1
-        image: 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:v1 .
