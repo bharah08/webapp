@@ -30,7 +30,9 @@ jobs:
       run: mvn -B install --file pom.xml
     - name: build docker image
       run: |
-        docker build -t 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:v1 .
-        docker push 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:v1
+        aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 220532506498.dkr.ecr.ap-south-1.amazonaws.com
+        docker build -t java .
+        docker tag java:latest 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:latest
+        docker push 220532506498.dkr.ecr.ap-south-1.amazonaws.com/java:latest
     
     
