@@ -27,38 +27,14 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B install --file pom.xml
-      
-    - name: SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@master
+
+    - uses: actions/checkout@v2
+    - uses: vitr/actions-build-and-upload-to-ecs@master
       with:
-        projectBaseDir: .
-        args: >
-          -Dsonar.verbose=true
-          -Dsonar.projectName=woapp
-          -Dsonar.language=java
-          -Dsonar.sourceEncoding=UTF-8
-          -Dsonar.sources=.
-          -Dsonar.java.binaries=target/classes
-          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-          -Dsonar.organization=my-org
-          -Dsonar.projectKey=my-Java-web-app
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    - name: SonarQube Quality Gate check
-      id: sonarqube-quality-gate-check
-      uses: sonarsource/sonarqube-quality-gate-action@master
-      # Force to fail step after specific time.
-      timeout-minutes: 1
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    - name: build docker image
-      run: docker build -t bharath0812/java:5.0 .
-    - name: docker image scan by trivy
-      run: trivy image bharath0812/java:5.0 >fs.txt
-    - name: push docker image to dockerhub
-      run:  |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-        docker push bharath0812/java:5.0
-        docker run -d --name webapp -p 8083:8080 bharath0812/java:5.0
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        repo: java
+        region: ap-south-1
+        tags: v1
+        create_repo: true
