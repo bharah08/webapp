@@ -38,7 +38,7 @@ jobs:
           -Dsonar.language=java
           -Dsonar.sourceEncoding=UTF-8
           -Dsonar.sources=.
-          -Dsonar.java.binaries=.
+          -Dsonar.java.binaries=target/classes
           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
           -Dsonar.organization=my-org
           -Dsonar.projectKey=my-Java-web-app
